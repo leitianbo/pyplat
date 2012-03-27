@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+{% block content %}
+<style>
+    form.well { padding: 14px; }
+</style>
+<script src='/static/lib/gTable/gTable.js'></script>
+<script>
+$(document).ready(function(){
+{% autoescape off %}
+    var table = new gTable('#user_list', {
+        'data': {{users}}
+    });
+{% endautoescape %}
+});
+</script>
+<div class="container-fluid">
+    <div class="row-fluid">
+        <form class="well">
+            <div class="span1">
+                姓名
+            </div>
+            <div class="span2">
+                <input type="text"/>
+            </div>
+        </form>
+    </div>
+    <div class="row-fluid">
+        <div class="span12">
+            <table id="user_list" class="table table-bordered table-striped table-condensed">
+                <caption><strong>用户信息列表</strong></caption>
+                <thead>
+                    <tr>
+                        <th key="SELECT" type="checkbox" width="23"></th>
+                        <th key="username" type="hyperlink" hyperlink-target="'/frame/user/edit?username='+row_data['username']" width="150">用户名</th>
+                        <th key="fullname" width="100">姓名</th>
+                        <th key="email" type="text">电子邮箱</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock content %}

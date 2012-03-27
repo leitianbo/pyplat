@@ -1,0 +1,52 @@
+{% extends "layout.html" %}
+{% block content %}
+<script>
+$(document).ready(function(){
+});
+</script>
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span2">&nbsp;</div>
+        <div class="span8">
+            <form id="edit_form" class="form-horizontal" method="post">
+                {% csrf_token %}
+                <fieldset>
+                    <legend>编辑用户信息</legend>
+                    <div class="control-group">
+                        <label class="control-label">用户名</label>
+                        <div class="controls">
+                            <span class="uneditable-input">{{user.username}}</span>
+                            <input type="hidden" id="username" name="username" value="{{user.username|safe}}"/>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">姓</label>
+                        <div class="controls">
+                            <input type="text" class="span1" id="last_name" name="last_name" value="{{user.last_name|safe}}"/>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">名</label>
+                        <div class="controls">
+                            <input type="text" class="span1" id="first_name" name="first_name" value="{{user.first_name|safe}}"/>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">电子邮件</label>
+                        <div class="controls">
+                            <input type="text" class="span3" id="email" name="email" value="{{user.email|safe}}"/>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label"></label>
+                        <div class="controls">
+                            <button type="submit" class="btn btn-primary" name="action" value="save">保存</button>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+        <div class="span2">&nbsp;</div>
+    </div>
+</div>
+{% endblock content %}
