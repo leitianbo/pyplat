@@ -13,17 +13,25 @@ $(document).ready(function(){
 {% endautoescape %}
 });
 </script>
-<form id="list_form" method="POST">
+<form id="list_form" method="POST" class="form-horizontal">
     {% csrf_token %}
     <div class="container-fluid">
         <div class="row-fluid">
-                <div class="span1">
-                    姓名
-                </div>
-                <div class="span2">
-                    <input type="text"/>
-                </div>
+            <div class="span12">
+                <table class="table">
+                    <caption><strong>查询条件</strong></caption>
+                    <tbody>
+                        <tr>
+                            <td style="text-align:right;padding-top:12px;">用户名</td>
+                            <td><input type="text" name="username" id="username"/></td>
+                            <td>姓名</td>
+                            <td><input type="text" name="fullname" id="fullname"/></td>
+                        </tr>
+                    </tbody>
+                </table>
+           </div>
         </div>
+        <button type="submit" name="action" value="list" class="btn">查询</button>
         <div class="row-fluid">
             <div class="span12">
                 <table id="user_list" class="table table-bordered table-striped table-condensed">

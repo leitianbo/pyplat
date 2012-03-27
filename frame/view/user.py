@@ -21,7 +21,10 @@ def list(request):
                 pass
         context['msg'].title = u'删除了%d个用户！' % len(selected_list)
 
-    context['users'] = model2json(User.objects.all())
+    in_username = request.REQUEST.get('username', '')
+    in_fullname = request.REQUEST.get('fullname', '')
+
+    context['users'] = model2json(User.objects.filter(username__startswith=in_username))
     return render_to_response('user/list.html', context, context_instance=RequestContext(request))
 
 def edit(request):
