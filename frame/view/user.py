@@ -10,9 +10,19 @@ def list(request):
     from django.contrib.auth.models import User
 
     context = {'msg': Message()}
-    context['users'] = model2json(User.objects.all())
 
-    return render_to_response('user/list.html', context)
+    if request.REQUEST.get('action', '') == 'delete':
+        user_list_data = json.loads(request.REQUEST.get('user_list'))
+        selected_list = [ user_data for idx, user_data in enumerate(user_list_data) if user_data.get('SELECT', '')]
+        for user_data in selected_list:
+            try:
+                User.objects.get(username = user_data.get('username')).delete()
+            except User.DoesNotExist:
+                pass
+        context['msg'].title = u'删除了%d个用户！' % len(selected_list)
+
+    context['users'] = model2json(User.objects.all())
+    return render_to_response('user/list.html', context, context_instance=RequestContext(request))
 
 def edit(request):
     from django.contrib.auth.models import User
